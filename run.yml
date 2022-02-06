@@ -1,0 +1,53 @@
+---
+- hosts: all
+  become: yes
+  roles:
+
+    #
+    # Basics
+    #
+    - role: system
+      tags:
+        - system
+
+    # - role: docker
+    #   tags:
+    #     - docker
+
+    # - role: chriswayg.msmtp-mailer
+    #   tags:
+    #     - msmtp
+
+    # - role: oefenweb.dns
+    #   tags:
+    #     - dns
+
+    # - role: geerlingguy.ntp
+    #   tags:
+    #     - ntp
+
+    # #
+    # # Security
+    # #
+    # - role: security/fail2ban
+    #   tags:
+    #   - fail2ban
+
+    # - role: security/iptables
+    #   tags:
+    #   - iptables
+    #   when: enable_iptables
+
+    # - role: security/crowdsec
+    #   tags:
+    #   - crowdsec
+    #   when: enable_crowdsec
+
+    # - role: security/endlessh
+    #   tags:
+    #   - endlessh
+    #   when: enable_endlessh | default(False)
+
+    # - role: geerlingguy.security
+    #   tags:
+    #     - security

@@ -1,0 +1,22 @@
+hostname: henry
+username: lewis
+
+timezone: America/Los_Angeles
+locale: en_US.UTF-8
+keyboard_layout: us
+
+dns_nameservers: ["1.1.1.1", "1.0.0.1"]
+
+extra_packages: 
+  - vim
+  - neofetch
+  - htop
+  - tmux
+  - speedtest-cli
+
+
+#
+# Apt mirrors
+#
+version: focal
+apt_mirror: http://mirror.enzu.com/ubuntu/
