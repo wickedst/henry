@@ -2,7 +2,6 @@
 - hosts: all
   become: yes
   roles:
-
     #
     # Basics
     #
@@ -11,8 +10,13 @@
         - system
 
     # - role: docker
-    #   tags:
-    #     - docker
+    # tags:
+    # - docker
+    #
+
+    - role: network/avahi
+      tags:
+        - avahi
 
     # - role: chriswayg.msmtp-mailer
     #   tags:
@@ -31,7 +35,7 @@
     # #
     # - role: security/fail2ban
     #   tags:
-    #   - fail2ban
+    #     - fail2ban
 
     # - role: security/iptables
     #   tags:
