@@ -1,22 +1,101 @@
 hostname: henry
 username: lewis
+email: l.tyler@gmail.com
 
 timezone: America/Los_Angeles
 locale: en_US.UTF-8
 keyboard_layout: us
 
+#
+# Network
+#
+lan_network: "10.0.0.0/24"
+lan_address: "{{ '.'.join(lan_network.split('.')[0:3]) }}.230"
+
 dns_nameservers: ["1.1.1.1", "1.0.0.1"]
 
-extra_packages: 
+extra_packages:
   - vim
+  - neovim
   - neofetch
   - htop
   - tmux
   - speedtest-cli
-
+  - hddtemp
+  - rsync
 
 #
 # Apt mirrors
 #
 version: focal
 apt_mirror: http://mirror.enzu.com/ubuntu/
+
+ntp_timezone: "{{ timezone }}"
+
+#
+# Docker stuff
+#
+guid: "1000"
+docker_dir: /opt/docker/data
+
+subdomains: {
+    "nextcloud": "nextcloud",
+    # 'vaultwarden': 'vaultwarden',
+  }
+
+#
+# Enable stuff
+#
+enable_endlessh: false
+enable_nextcloud: false
+enable_ikev2: true
+
+#
+# Enable Security
+#
+enable_crowdsec: true
+enable_iptables: true
+enable_fail2ban: true
+
+#
+# SSH (geerlingguy.security)
+#
+security_ssh_port: 69
+security_sudoers_passwordless: ["{{ username }}"]
+security_autoupdate_reboot: "true"
+# security_autoupdate_mail_to: "{{ email }}"
+security_autoupdate_mail_on_error: true
+
+samba_shares:
+  - name: Trash
+    guest_ok: no
+    public: no
+    read_only: no
+    writable: yes
+    owner: "{{ username }}"
+    browseable: yes
+    path: "{{ mergerfs_root }}"
+    valid_users: "{{ username }}"
+    write_list: "{{ username }}"
+
+  - name: Downloads
+    guest_ok: no
+    public: no
+    read_only: no
+    writable: yes
+    browseable: yes
+    owner: "{{ username }}"
+    path: "{{ mergerfs_root }}/Downloads"
+    valid_users: "{{ username }}, {{ additional_users[0].name }}"
+    write_list: "{{ username }}, {{ additional_users[0].name }}"
+
+  - name: Media
+    guest_ok: no
+    public: no
+    read_only: no
+    writable: yes
+    browseable: yes
+    owner: "{{ username }}"
+    path: "{{ mergerfs_root }}/Media"
+    valid_users: "{{ username }}, {{ additional_users[0].name }}"
+    write_list: "{{ username }}, {{ additional_users[0].name }}"
